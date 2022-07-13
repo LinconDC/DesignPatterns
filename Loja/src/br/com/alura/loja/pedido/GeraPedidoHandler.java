@@ -10,16 +10,16 @@ import br.com.alura.loja.orcamento.Orcamento;
 public class GeraPedidoHandler {
 
 	private List<AcaoAposGerarPedido> acoesAposGerarPedido;
-	
+
 	public GeraPedidoHandler(List<AcaoAposGerarPedido> acoesAposGerarPedido) {
 		this.acoesAposGerarPedido = acoesAposGerarPedido;
 	}
-	
+
 	public void executar(GeraPedido geraPedido) {
 		Orcamento orcamento = new Orcamento();
 		orcamento.adicionarItem(new ItemOrcamento(new BigDecimal("200")));
 		Pedido pedido = new Pedido(geraPedido.getCliente(), LocalDateTime.now(), orcamento);
-		
+
 		this.acoesAposGerarPedido.forEach(a -> a.executarAcao(pedido));
 	}
 
